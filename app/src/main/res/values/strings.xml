@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DemoFish</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="shoppingcat">购物车</string>
+    <string name="actionBar_edit">编辑</string>
+    <string name="all">全选</string>
+    <string name="order_total">合计 :</string>
+</resources>

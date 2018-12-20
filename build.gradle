@@ -1,0 +1,47 @@
+buildscript {
+    ext {
+        setup = [compileSdk: 26,
+                 buildTools: "25.0.2",
+                 minSdk    : 16,
+                 targetSdk : 28]
+
+        versions = [supportLib: "25.2.0",
+                    okio      : "1.9.0",
+                    okhttp3   : "3.8.1",
+                    retrofit : "2.3.0", //
+                    retrofitConvertGson : "2.3.0", //
+                    retrofitAdapterRxJava : "2.3.0", //
+                    fresco    : "1.5.0",
+                    frescoImage:"0.12.0+",
+                    rxjava    : "2.1.2",
+                    rxandroid : "2.0.1"]
+    }
+
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots'
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
