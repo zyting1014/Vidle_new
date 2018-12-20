@@ -5,6 +5,9 @@ package com.demo.fish.app.main.entity;
  */
 
 public class BannerEntity {
+
+
+
     private String imageUrl;
     public String getImageUrl() {
         return imageUrl;
