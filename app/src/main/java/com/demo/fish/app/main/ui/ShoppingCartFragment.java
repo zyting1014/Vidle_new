@@ -2,15 +2,12 @@ package com.demo.fish.app.main.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,8 +108,9 @@ public class ShoppingCartFragment extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initPtrFrame();
+
         initActionBar();
+        initPtrFrame();
         initData();
         initEvents();
     }
@@ -282,27 +280,10 @@ public class ShoppingCartFragment extends Fragment implements View.OnClickListen
     private void initActionBar() {
         //隐藏标题栏
         View view = getActivity().getLayoutInflater().inflate(R.layout.acitonbar, null);
-
-        ActionBar actionBar=((AppCompatActivity) getActivity()).getSupportActionBar();
-        if ( actionBar!= null) {
-            //去掉阴影
-            actionBar.setElevation(0);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowCustomEnabled(true);
-
-            shoppingcatNum = (TextView) view.findViewById(R.id.shoppingcat_num);
-            actionBarEdit = (Button) view.findViewById(R.id.actionBar_edit);
+        shoppingcatNum = (TextView) view.findViewById(R.id.shoppingcat_num);
+        actionBarEdit = (Button) view.findViewById(R.id.actionBar_edit);
             //不知道为什么，ButterKnife不知道BindView
-            empty_shopcart = (LinearLayout) view.findViewById(R.id.layout_empty_shopcart);
-
-            actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setCustomView(view, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ActionBar.LayoutParams lp = (ActionBar.LayoutParams) view.getLayoutParams();
-            lp.gravity = Gravity.HORIZONTAL_GRAVITY_MASK | Gravity.CENTER_HORIZONTAL;
-            actionBar.setCustomView(view, lp);
-        }
-
-
+        empty_shopcart = (LinearLayout) view.findViewById(R.id.layout_empty_shopcart);
     }
 
 

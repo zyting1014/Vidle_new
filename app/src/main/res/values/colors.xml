@@ -475,4 +475,14 @@
     <color name="grey_color3">#999999</color>
     <!-- 橙色 -->
     <color name="orange_color">#de6838</color>
+
+
+    <!-- 发布界面 -->
+    <color name="key_ok_color">#FFCC00</color>
+    <color name="key_ok_color_pressed">#FFCC00</color>
+
+    <color name="photopicker_background">#181819</color>
+
+    <color name="colorBlue2">#2988CC</color>
+    <color name="colorGray">#6c6c6c</color>
 </resources>

@@ -36,7 +36,6 @@ public class HomeFragment extends Fragment {
         FragmentHomeBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         mViewModel = new HomeViewModel(new HomeViewLayer(binding, this),this.getContext());
         mViewModel.bind();
-
         return binding.getRoot();
     }
 

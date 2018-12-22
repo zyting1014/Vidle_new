@@ -75,4 +75,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //强大的下拉刷新控件
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+
+    //发布
+    compile project(':pictureselector')
+    compile 'com.jakewharton:butterknife:7.0.1'// 资源注入
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
 }

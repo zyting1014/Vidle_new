@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.demo.fish.app.main.myOrder.MyOrderFragment;
 import com.demo.fish.app.main.ui.ShoppingCartFragment;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -46,7 +47,7 @@ public class MainViewLayer extends ViewLayer<IMainViewModel, AppCompatActivity> 
     private List<Fragment> mFragmentList;
     private HomeFragment mHomeFragment;
     private ShoppingCartFragment mShoppingFragment;
-    private Fragment mMessageFragment;
+    private MyOrderFragment mOrderFragment;
     private Fragment mMineFragment;
 
     private List<View> mTabViewList;
@@ -120,11 +121,11 @@ public class MainViewLayer extends ViewLayer<IMainViewModel, AppCompatActivity> 
         mFragmentList = new ArrayList<>();
         mHomeFragment = HomeFragment.newInstance();
         mShoppingFragment =ShoppingCartFragment.newInstance();
-        mMessageFragment = new Fragment();
+        mOrderFragment = MyOrderFragment.newInstance();
         mMineFragment = new Fragment();
         mFragmentList.add(mHomeFragment);
         mFragmentList.add(mShoppingFragment);
-        mFragmentList.add(mMessageFragment);
+        mFragmentList.add(mOrderFragment);
         mFragmentList.add(mMineFragment);
 
         mTabViewList = new ArrayList<>();

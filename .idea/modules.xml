@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Vidle_new.iml" filepath="$PROJECT_DIR$/Vidle_new.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/brvah/brvah.iml" filepath="$PROJECT_DIR$/brvah/brvah.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pictureselector/pictureselector.iml" filepath="$PROJECT_DIR$/pictureselector/pictureselector.iml" />
     </modules>
   </component>
 </project>
