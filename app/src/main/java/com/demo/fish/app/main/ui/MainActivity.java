@@ -13,11 +13,17 @@ import android.widget.Toast;
 
 import com.demo.fish.R;
 import com.demo.fish.app.main.PostGoods.PostGoodsActivity;
+import com.demo.fish.app.main.entity.Good;
 import com.demo.fish.app.main.ui.layer.MainViewLayer;
 import com.demo.fish.app.main.model.IMainViewModel;
 import com.demo.fish.app.main.model.impl.MainViewModel;
 
+import java.util.List;
+
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -28,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bmob.initialize(this, "f978e6dc79e48be95b3fef46c298a56c");
+        defaultQuery();//显示所有商品信息
         View view = getLayoutInflater().inflate(R.layout.acitonbar, null);
         Toolbar actionBar=view.findViewById(R.id.toolbar);
         setSupportActionBar(actionBar);
@@ -38,6 +45,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ic_tab_add= (ImageView) findViewById(R.id.dd5);
         ic_tab_add.setOnClickListener(this);
     }
+
+    public void defaultQuery(){
+        BmobQuery<Good> query = new BmobQuery<Good>();
+        query.findObjects(new FindListener<Good>() {
+            @Override
+            public void done(List<Good> list, BmobException e) {
+                if(e == null){
+                    Toast.makeText(MainActivity.this, "2333", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+
 
     @Override
     protected void onDestroy() {

@@ -6,8 +6,10 @@ import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.net.Uri;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.demo.fish.app.main.entity.HomeListEntity1;
 import com.demo.fish.app.main.goodInfo.ui.GoodInfoActivity;
 import com.facebook.common.util.UriUtil;
 import com.demo.fish.R;
@@ -21,8 +23,12 @@ import com.demo.fish.app.main.model.IHomeViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -285,6 +291,72 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
         }
     }
 
+//    private void loadRefreshList() {
+//        if (mEntity.isRefreshLoading()) {
+//            return;
+//        }
+//        mHomeList.clear();
+//        mEntity.setRefreshLoading(true);
+//
+//        io.reactivex.Observable
+//                .create(new ObservableOnSubscribe<List<HomeListEntity>>() {
+//                    @Override
+//                    public void subscribe(@NonNull ObservableEmitter<List<HomeListEntity>> e) throws Exception {
+//                        List<HomeListEntity> list = new ArrayList<>();
+//                        String message = "新鲜的 ";
+//                        for (int i = 1; i <= PAGE_SIZE; i++) {
+//                            HomeListEntity entity = new HomeListEntity();
+//                            entity.setName(message + i);
+//                            entity.setDesc(message + i);
+//                            entity.setCommentCount(i);
+//                            entity.setLikeCount(i);
+//                            entity.setDate(new Date().toString());
+//                            entity.setAddress(message + i);
+//                            entity.setGroupName(message + i);
+//                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
+//                            List<String> list1 = new ArrayList<>();
+//                            for (int j = 0; j < 7; j++) {
+//                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
+//                            }
+//                            entity.setPhotoList(list1);
+//                            entity.setLiked(i % 2 == 0 ? true : false);
+//                            list.add(entity);
+//                        }
+//
+//                        Thread.sleep(1000);
+//                        e.onNext(list);
+//                        e.onComplete();
+//                    }
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new DisposableObserver<List<HomeListEntity>>() {
+//                    @Override
+//                    public void onNext(List<HomeListEntity> homeListEntities) {
+//                        mFreshList.clear();
+//                        mFreshList.addAll(homeListEntities);
+//
+//                        if (HomeEntity.LIST_TYPE_FRESH == mEntity.getListType()) {
+//                            mHomeList.addAll(mFreshList);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        if (mEntity.isRefreshLoading()) {
+//                            mEntity.setRefreshLoading(false);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        if (mEntity.isRefreshLoading()) {
+//                            mEntity.setRefreshLoading(false);
+//                        }
+//                    }
+//                });
+//    }
+
     private void loadRefreshList() {
         if (mEntity.isRefreshLoading()) {
             return;
@@ -299,6 +371,7 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                         List<HomeListEntity> list = new ArrayList<>();
                         String message = "新鲜的 ";
                         for (int i = 1; i <= PAGE_SIZE; i++) {
+
                             HomeListEntity entity = new HomeListEntity();
                             entity.setName(message + i);
                             entity.setDesc(message + i);
@@ -350,7 +423,6 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                     }
                 });
     }
-
     private void loadNearList() {
         if (mEntity.isNearLoading()) {
             return;
@@ -580,5 +652,25 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                         mNearListPage++;
                     }
                 });
+    }
+
+
+    public List<HomeListEntity1> queryHomeListEntity(){
+        BmobQuery<HomeListEntity1> query = new BmobQuery<HomeListEntity1>();
+        final List<HomeListEntity1> result = new LinkedList<>();
+        query.findObjects(new FindListener<HomeListEntity1>() {
+            @Override
+            public void done(List<HomeListEntity1> list, BmobException e) {
+                if(e == null){
+                    for(HomeListEntity1 q1:list){
+                        result.add(q1);
+                    }
+                    Toast.makeText(context, "chenggong", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        return result;
     }
 }
