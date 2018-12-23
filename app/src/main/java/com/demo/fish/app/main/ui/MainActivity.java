@@ -17,6 +17,8 @@ import com.demo.fish.app.main.ui.layer.MainViewLayer;
 import com.demo.fish.app.main.model.IMainViewModel;
 import com.demo.fish.app.main.model.impl.MainViewModel;
 
+import cn.bmob.v3.Bmob;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private IMainViewModel mViewModel;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bmob.initialize(this, "f978e6dc79e48be95b3fef46c298a56c");
         View view = getLayoutInflater().inflate(R.layout.acitonbar, null);
         Toolbar actionBar=view.findViewById(R.id.toolbar);
         setSupportActionBar(actionBar);
