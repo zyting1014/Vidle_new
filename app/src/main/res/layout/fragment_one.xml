@@ -11,29 +11,36 @@
         android:orientation="vertical">
 
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_300"
-            android:text="我是第一个页面,向上滑动一下试试1"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle1"/>
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_300"
-            android:text="我是第一个页面,向上滑动一下试试2"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle2"/>
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_300"
-            android:text="我是第一个页面,向上滑动一下试试3"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle3"/>
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_300"
-            android:text="我是第一个页面,向上滑动一下试试4"/>
-
-        <TextView
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle4"/>
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/px_300"
-            android:text="我是第一个页面,向上滑动一下试试5"/>
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle5"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle6"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/kindle7"/>
     </LinearLayout>
 </com.demo.fish.app.main.goodInfo.utils.MyScrollView>

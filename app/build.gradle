@@ -13,7 +13,7 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
 
@@ -84,11 +84,6 @@ dependencies {
     compile project(':pictureselector')
     compile 'com.jakewharton:butterknife:7.0.1'// 资源注入
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
-    //bmob-sdk：Bmob的android sdk包，包含了Bmob的数据存储、文件等服务，以下是最新的bmob-sdk:
-    compile 'cn.bmob.android:bmob-sdk:3.5.5'
-
-
 
 
 }

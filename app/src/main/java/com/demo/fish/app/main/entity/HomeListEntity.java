@@ -1,9 +1,11 @@
 package com.demo.fish.app.main.entity;
 
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.demo.fish.BR;
+import com.demo.fish.app.main.goodInfo.ui.GoodInfoActivity;
 
 import java.util.List;
 

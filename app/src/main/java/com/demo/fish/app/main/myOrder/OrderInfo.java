@@ -9,6 +9,7 @@ public class OrderInfo {
     private String Name;
     private boolean DeleteState;
     private boolean EvaluateState;
+    private  int img;
 
     public int getID() {
         return ID;
@@ -40,5 +41,11 @@ public class OrderInfo {
 
     public void setEvaluateState(boolean evaluateState) {
         EvaluateState = evaluateState;
+    }
+    public void setIcon(int url){
+        this.img=url;
+    }
+    public int getImg(){
+        return img;
     }
 }

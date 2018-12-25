@@ -100,7 +100,7 @@ public class MyOrderFragment extends Fragment {
         elMainOrdercenter.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(getContext(),"跳转到订单详细页面:"+childPosition,Toast.LENGTH_SHORT).show();
+
                 return false;
             }
         });
@@ -164,6 +164,8 @@ public class MyOrderFragment extends Fragment {
                 convertView=View.inflate(getContext(),R.layout.child_view,null);
             }
             //获取布局控件id
+            ImageView img=(ImageView) convertView.findViewById(R.id.img);
+            img.setImageResource(dataMap.get(titleArr[groupPosition]).get(childPosition).getImg());
             TextView tvChildviewContent=(TextView) convertView.findViewById(R.id.tv_childview_content);
             tvChildviewContent.setText(dataMap.get(titleArr[groupPosition]).get(childPosition).getName());
             Button btnChildviewDelete=(Button) convertView.findViewById(R.id.btn_childview_delete);
@@ -208,57 +210,49 @@ public class MyOrderFragment extends Fragment {
      */
     private void initJsonData(){
         dataMap=new HashMap<String,List<OrderInfo>>();
-        titleArr=new String[]{"商城店铺1","商城店铺2","商城店铺3"};
+        titleArr=new String[]{"朱雨婷","代继桥","刘青羽"};
         List<OrderInfo> list1=new ArrayList<OrderInfo>();
         List<OrderInfo> list2=new ArrayList<OrderInfo>();
         List<OrderInfo> list3=new ArrayList<OrderInfo>();
         OrderInfo orderInfo1=new OrderInfo();
-        orderInfo1.setName(titleArr[0]+"_one");
+        orderInfo1.setName("二手iphone7");
+        orderInfo1.setIcon(R.drawable.shouji1);
         orderInfo1.setEvaluateState(true);
-        orderInfo1.setDeleteState(false);
+        orderInfo1.setDeleteState(true);
         OrderInfo orderInfo2=new OrderInfo();
-        orderInfo2.setName(titleArr[0]+"_two");
+        orderInfo2.setName("二手iphoneX");
+        orderInfo2.setIcon(R.drawable.shouji8);
         orderInfo2.setEvaluateState(false);
         orderInfo2.setDeleteState(true);
-        OrderInfo orderInfo3=new OrderInfo();
-        orderInfo3.setName(titleArr[0]+"_three");
-        orderInfo3.setEvaluateState(true);
-        orderInfo3.setDeleteState(true);
 
         OrderInfo orderInfo4=new OrderInfo();
-        orderInfo4.setName(titleArr[1]+"_one");
+        orderInfo4.setName("二手kindle 9成新");
+        orderInfo4.setIcon(R.drawable.kindle2);
         orderInfo4.setEvaluateState(true);
         orderInfo4.setDeleteState(false);
         OrderInfo orderInfo5=new OrderInfo();
-        orderInfo5.setName(titleArr[1]+"_two");
+        orderInfo5.setName("二手kindle 95新");
+        orderInfo5.setIcon(R.drawable.kindle8);
         orderInfo5.setEvaluateState(false);
         orderInfo5.setDeleteState(true);
 
         OrderInfo orderInfo6=new OrderInfo();
-        orderInfo6.setName(titleArr[2]+"_one");
+        orderInfo6.setName("二手书籍");
+        orderInfo6.setIcon(R.drawable.shuji1);
         orderInfo6.setEvaluateState(true);
-        orderInfo6.setDeleteState(false);
+        orderInfo6.setDeleteState(true);
         OrderInfo orderInfo7=new OrderInfo();
-        orderInfo7.setName(titleArr[2]+"_two");
+        orderInfo7.setName("二手书籍");
+        orderInfo7.setIcon(R.drawable.shuji8);
         orderInfo7.setEvaluateState(false);
         orderInfo7.setDeleteState(true);
-        OrderInfo orderInfo8=new OrderInfo();
-        orderInfo8.setName(titleArr[2]+"_three");
-        orderInfo8.setEvaluateState(true);
-        orderInfo8.setDeleteState(true);
-        OrderInfo orderInfo9=new OrderInfo();
-        orderInfo9.setName(titleArr[2]+"_four");
-        orderInfo9.setEvaluateState(false);
-        orderInfo9.setDeleteState(false);
+
         list1.add(orderInfo1);
         list1.add(orderInfo2);
-        list1.add(orderInfo3);
         list2.add(orderInfo4);
         list2.add(orderInfo5);
         list3.add(orderInfo6);
         list3.add(orderInfo7);
-        list3.add(orderInfo8);
-        list3.add(orderInfo9);
         dataMap.put(titleArr[0],list1);
         dataMap.put(titleArr[1],list2);
         dataMap.put(titleArr[2],list3);

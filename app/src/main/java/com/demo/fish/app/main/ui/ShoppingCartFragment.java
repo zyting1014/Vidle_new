@@ -235,13 +235,20 @@ public class ShoppingCartFragment extends Fragment implements View.OnClickListen
         mcontext =getContext();
         groups = new ArrayList<StoreInfo>();
         childs = new HashMap<String, List<GoodsInfo>>();
-        for (int i = 0; i < 5; i++) {
-            groups.add(new StoreInfo(i + "", "小马的第" + (i + 1) + "号当铺"));
+        String[] username={"朱雨婷","刘青羽","代继桥"};
+        int[] img = {R.drawable.shouji1, R.drawable.shouji8, R.drawable.shuji1, R.drawable.shuji8,R.drawable.kindle2, R.drawable.kindle8};
+        for (int i = 0; i < 3; i++) {
+            groups.add(new StoreInfo(i + "", username[i]));
             List<GoodsInfo> goods = new ArrayList<>();
-            for (int j = 0; j <= i; j++) {
-                int[] img = {R.drawable.cmaz, R.drawable.cmaz, R.drawable.cmaz, R.drawable.cmaz, R.drawable.cmaz, R.drawable.cmaz};
+            String[] goodsName={"二手iphone7","二手iphoneX","二手书籍","二手书籍","二手kindle 9成新","二手kindle 95新"};
+
+            for (int j = 0; j < 2; j++) {
+
                 //i-j 就是商品的id， 对应着第几个店铺的第几个商品，1-1 就是第一个店铺的第一个商品
-                goods.add(new GoodsInfo(i + "-" + j, "商品", groups.get(i).getName() + "的第" + (j + 1) + "个商品", 255.00 + new Random().nextInt(1500), 1555 + new Random().nextInt(3000), "第一排", "出头天者", img[j], new Random().nextInt(100)));
+                goods.add(new GoodsInfo(i + "-" + j, "商品", goodsName[i*2+j],
+                        255.00 + new Random().nextInt(1000),
+                        1555 + new Random().nextInt(1000),
+                        "均码", "", img[i*2+j], 1));
             }
             childs.put(groups.get(i).getId(), goods);
         }

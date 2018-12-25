@@ -1,11 +1,22 @@
 package com.demo.fish.app.main.goodInfo.ui;
 
+import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.demo.fish.R;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -16,12 +27,12 @@ import com.demo.fish.app.main.goodInfo.adapter.SimpleFragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoodInfoActivity extends AppCompatActivity {
+public class GoodInfoActivity extends AppCompatActivity implements View.OnClickListener {
     private ArrayList<Fragment> list_fragment = new ArrayList<>();
     private ArrayList<String> list_title = new ArrayList<>();
     private OneFragment mOneFragment;
     private TwoFragment mTwoFragment;
-
+    private TextView shoppingCart;
 
     private SimpleFragmentPagerAdapter pagerAdapter;
 
@@ -45,10 +56,10 @@ public class GoodInfoActivity extends AppCompatActivity {
      */
     private void initControls() {
         List<String> networkImages = new ArrayList<>();
-        networkImages.add("http://img2.imgtn.bdimg.com/it/u=3093785514,1341050958&fm=21&gp=0.jpg");
-        networkImages.add("http://www.8kmm.com/UploadFiles/2012/8/201208140920132659.jpg");
-        networkImages.add("http://f.hiphotos.baidu.com/image/h%3D200/sign=1478eb74d5a20cf45990f9df460b4b0c/d058ccbf6c81800a5422e5fdb43533fa838b4779.jpg");
-        networkImages.add("http://f.hiphotos.baidu.com/image/pic/item/09fa513d269759ee50f1971ab6fb43166c22dfba.jpg");
+        networkImages.add("https://img.alicdn.com/imgextra/i2/2099020602/TB2Tq6pA9tYBeNjSspaXXaOOFXa_!!2099020602.jpg");
+        networkImages.add("https://img.alicdn.com/imgextra/i4/2099020602/TB2OXuPsyCYBuNkHFCcXXcHtVXa_!!2099020602.jpg");
+        networkImages.add("https://img.alicdn.com/imgextra/i2/2099020602/TB28ayFA7SWBuNjSszdXXbeSpXa_!!2099020602.jpg");
+        networkImages.add("https://img.alicdn.com/imgextra/i1/2099020602/TB20gNpsS8YBeNkSnb4XXaevFXa_!!2099020602.jpg");
         mBanner = (ConvenientBanner) findViewById(R.id.banner_convenient);
         mBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
             @Override
@@ -56,7 +67,7 @@ public class GoodInfoActivity extends AppCompatActivity {
                 return new NetworkImageHolderView();
             }
         }, networkImages);
-        mBanner.setPointViewVisible(false);//是否显示小圆点
+        mBanner.setPointViewVisible(true);//是否显示小圆点
         mBanner.startTurning(2000);
 
 
@@ -65,8 +76,8 @@ public class GoodInfoActivity extends AppCompatActivity {
         mTwoFragment = new TwoFragment();
         list_fragment.add(mOneFragment);
         list_fragment.add(mTwoFragment);
-        list_title.add("第一个页面");
-        list_title.add("第二个页面");
+        list_title.add("商品详情");
+        list_title.add("商品评价");
 
 
         pagerAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this, list_fragment, list_title);
@@ -92,5 +103,55 @@ public class GoodInfoActivity extends AppCompatActivity {
             }
         });
 
+        shoppingCart = (TextView) findViewById(R.id.shoppingcat);
+        shoppingCart.setOnClickListener(this);
+        findViewById(R.id.communicate).setOnClickListener(this);
+        findViewById(R.id.not_collect_tv).setOnClickListener(this);
+        findViewById(R.id.buy_immediately_bt).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.shoppingcat:
+                Toast.makeText(getApplicationContext(), "添加成功！", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.buy_immediately_bt:
+                TextView price = (TextView) findViewById(R.id.price);
+                AlertDialog dialog = new AlertDialog.Builder(this).create();
+                dialog.setMessage("总共需支付" + price.getText() + "元，您确定要下单吗？");
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "支付", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "支付成功！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                });
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                dialog.show();
+                break;
+            case R.id.not_collect_tv:
+                Toast.makeText(getApplicationContext(), "收藏成功！", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.communicate:
+                Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("18514520601"));
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(intent);
+                break;
+    }
     }
 }

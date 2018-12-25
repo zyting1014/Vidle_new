@@ -27,8 +27,10 @@ public class TwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String[] comment={"朱雨婷：\n非常好，很新，很nice！！！值得购买！！！","代继桥：\n快递很给力，好评好评！！！",
+        "刘青羽：\n此用户没有填写评论!"};
         for (int i = 0; i < 20; i++) {
-            mList.add("我是李小米吖：" + i);
+            mList.add(comment[i%3]);
         }
         mView = inflater.inflate(R.layout.fragment_two, container, false);
         initView();

@@ -86,12 +86,13 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/communicate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableTop="@mipmap/good_icon_service"
                     android:gravity="center"
                     android:padding="@dimen/px_10"
-                    android:text="联系客服"
+                    android:text="联系卖家"
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/px_24" />
             </LinearLayout>
@@ -104,6 +105,7 @@
             android:layout_weight="2">
 
             <TextView
+                android:id="@+id/shoppingcat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/color_FF6F06"

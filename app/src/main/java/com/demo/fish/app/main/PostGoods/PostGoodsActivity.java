@@ -1,8 +1,11 @@
 package com.demo.fish.app.main.PostGoods;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.BinderThread;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -38,7 +42,7 @@ import butterknife.ButterKnife;
  * Created by xuejinwei on 16/8/19.
  * Email:xuejinwei@outlook.com
  */
-public class PostGoodsActivity extends AppCompatActivity {
+public class PostGoodsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int REQUEST_CAMERA_CODE = 10;
     private static final int REQUEST_PREVIEW_CODE = 20;
@@ -55,7 +59,7 @@ public class PostGoodsActivity extends AppCompatActivity {
     @BindView(R.id.et_freight)       EditText       et_freight;
     @BindView(R.id.keyboard_view)    MyKeyBoardView keyboard_view;
     @BindView(R.id.ll_price_select)  LinearLayout   ll_price_select;
-
+    @BindView(R.id.pushGoods) Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +67,7 @@ public class PostGoodsActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridView);
         ButterKnife.bind(this);
 
+        btn.setOnClickListener(this);
         final KeyboardUtil keyboardUtil = new KeyboardUtil(PostGoodsActivity.this);
         keyboardUtil.setOnOkClick(new KeyboardUtil.OnOkClick() {
             @Override
@@ -280,6 +285,30 @@ public class PostGoodsActivity extends AppCompatActivity {
             JSONArray obj = new JSONArray(imagePaths);
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.pushGoods:
+                AlertDialog dialog = new AlertDialog.Builder(this).create();
+                dialog.setMessage("您确定要发布吗？");
+                dialog.setButton(DialogInterface.BUTTON_POSITIVE, "发布", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(), "发布成功！", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                });
+                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                dialog.show();
+                break;
         }
     }
 

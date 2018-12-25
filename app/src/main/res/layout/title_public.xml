@@ -7,7 +7,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="@dimen/px_88"
-        android:background="@color/colorWhite"
+        android:background="@color/primary"
         android:orientation="vertical">
 
         <ImageView
@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:minHeight="@dimen/px_88"
-            android:text="标题"
-            android:textColor="@color/color_343940"
+            android:text="商品详情"
+            android:textColor="@color/white"
             android:textSize="@dimen/px_32" />
 
         <TextView

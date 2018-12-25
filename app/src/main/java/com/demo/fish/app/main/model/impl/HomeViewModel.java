@@ -1,16 +1,12 @@
 package com.demo.fish.app.main.model.impl;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.net.Uri;
-import android.widget.Toast;
 
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
-import com.demo.fish.app.main.entity.HomeListEntity1;
-import com.demo.fish.app.main.goodInfo.ui.GoodInfoActivity;
 import com.facebook.common.util.UriUtil;
 import com.demo.fish.R;
 import com.demo.fish.app.main.entity.BannerEntity;
@@ -23,12 +19,8 @@ import com.demo.fish.app.main.model.IHomeViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,6 +50,20 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
     private int mNearListPage = 1;
 
     private Context context;
+
+    String[] username={"朱雨婷","刘青羽","代继桥"};
+    String[] desc={
+            "二手手机，iphone7九成新，欢迎抢购！！！！",
+            "二手书籍，各种书，欢迎抢购！！！！",
+            "二手Kindle,95新，先到先得！！！！"
+    };
+    int[][] goodsIcon={{R.drawable.shouji1,R.drawable.shouji2,R.drawable.shouji3,
+            R.drawable.shouji4,R.drawable.shouji5,R.drawable.shouji6,R.drawable.shouji7},
+            {R.drawable.shuji1,R.drawable.shuji2,R.drawable.shuji3,R.drawable.shuji4,R.drawable.shuji5},
+            {R.drawable.kindle1,R.drawable.kindle2,R.drawable.kindle3,R.drawable.kindle4,
+                    R.drawable.kindle5,R.drawable.kindle6,R.drawable.kindle7}};
+    int[] icon={R.drawable.zhuyuting,R.drawable.liuqingyu,R.drawable.daijiqiao};
+
     public HomeViewModel(ViewLayer viewLayer,Context context) {
         super(viewLayer);
         this.context=context;
@@ -87,12 +93,21 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
 
     private void initFunctionEntities() {
         mFunctionList = new ObservableArrayList<>();
-        String iconUrl = UriUtil.getUriForResourceId(R.mipmap.ic_launcher).toString();
+        ArrayList<String> iconUrl=new ArrayList<>();
+        iconUrl.add(UriUtil.getUriForResourceId(R.drawable.dianqi).toString());
+        iconUrl.add(UriUtil.getUriForResourceId(R.drawable.bao).toString());
+        iconUrl.add(UriUtil.getUriForResourceId(R.drawable.nvzhuang).toString());
+        iconUrl.add(UriUtil.getUriForResourceId(R.drawable.shoushi_1).toString());
+        iconUrl.add(UriUtil.getUriForResourceId(R.drawable.shuma).toString());
+        iconUrl.add(UriUtil.getUriForResourceId(R.drawable.baihuo).toString());
+
+        String[] title={"居家电器","服饰鞋包","租衣服","二手首饰","数码","生活用品"};
+
         for (int i = 0; i < 6; i++) {
             FunctionItemEntity entity = new FunctionItemEntity();
-            entity.setIconUrl(iconUrl);
-            entity.setTitle("测试标题" + i);
-            entity.setDesc("测试描述" + i);
+            entity.setIconUrl(iconUrl.get(i));
+            entity.setTitle(title[i]);
+            entity.setDesc("");
             mFunctionList.add(entity);
         }
     }
@@ -173,8 +188,7 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
     @Override
     public void onFunctionItemClick(FunctionItemEntity entity) {
         //TODO 事件处理
-        Intent intent=new Intent(context,GoodInfoActivity.class);
-        context.startActivity(intent);
+
     }
 
     @Override
@@ -198,19 +212,20 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                     public void subscribe(@NonNull ObservableEmitter<List<HomeListEntity>> e) throws Exception {
                         List<HomeListEntity> list = new ArrayList<>();
                         String message = "新鲜的 ";
+
                         for (int i = 1; i <= PAGE_SIZE; i++) {
                             HomeListEntity entity = new HomeListEntity();
-                            entity.setName(message + i);
-                            entity.setDesc(message + i);
+                            entity.setName(username[(i-1)%3]);
+                            entity.setDesc(desc[(i-1)%3]);
                             entity.setCommentCount(i);
                             entity.setLikeCount(i);
                             entity.setDate(new Date().toString());
-                            entity.setAddress(message + i);
-                            entity.setGroupName(message + i);
-                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
+                            entity.setAddress("北京");
+                            entity.setGroupName(username[(i-1)%3]);
+                            entity.setIconUrl(UriUtil.getUriForResourceId(icon[(i-1)%3]).toString());
                             List<String> list1 = new ArrayList<>();
-                            for (int j = 0; j < 7; j++) {
-                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
+                            for (int j = 0; j < goodsIcon[(i-1)%3].length; j++) {
+                                list1.add(UriUtil.getUriForResourceId(goodsIcon[(i-1)%3][j]).toString());
                             }
                             entity.setPhotoList(list1);
                             entity.setLiked(i % 2 == 0 ? true : false);
@@ -291,71 +306,6 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
         }
     }
 
-//    private void loadRefreshList() {
-//        if (mEntity.isRefreshLoading()) {
-//            return;
-//        }
-//        mHomeList.clear();
-//        mEntity.setRefreshLoading(true);
-//
-//        io.reactivex.Observable
-//                .create(new ObservableOnSubscribe<List<HomeListEntity>>() {
-//                    @Override
-//                    public void subscribe(@NonNull ObservableEmitter<List<HomeListEntity>> e) throws Exception {
-//                        List<HomeListEntity> list = new ArrayList<>();
-//                        String message = "新鲜的 ";
-//                        for (int i = 1; i <= PAGE_SIZE; i++) {
-//                            HomeListEntity entity = new HomeListEntity();
-//                            entity.setName(message + i);
-//                            entity.setDesc(message + i);
-//                            entity.setCommentCount(i);
-//                            entity.setLikeCount(i);
-//                            entity.setDate(new Date().toString());
-//                            entity.setAddress(message + i);
-//                            entity.setGroupName(message + i);
-//                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
-//                            List<String> list1 = new ArrayList<>();
-//                            for (int j = 0; j < 7; j++) {
-//                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
-//                            }
-//                            entity.setPhotoList(list1);
-//                            entity.setLiked(i % 2 == 0 ? true : false);
-//                            list.add(entity);
-//                        }
-//
-//                        Thread.sleep(1000);
-//                        e.onNext(list);
-//                        e.onComplete();
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new DisposableObserver<List<HomeListEntity>>() {
-//                    @Override
-//                    public void onNext(List<HomeListEntity> homeListEntities) {
-//                        mFreshList.clear();
-//                        mFreshList.addAll(homeListEntities);
-//
-//                        if (HomeEntity.LIST_TYPE_FRESH == mEntity.getListType()) {
-//                            mHomeList.addAll(mFreshList);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        if (mEntity.isRefreshLoading()) {
-//                            mEntity.setRefreshLoading(false);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        if (mEntity.isRefreshLoading()) {
-//                            mEntity.setRefreshLoading(false);
-//                        }
-//                    }
-//                });
-//    }
 
     private void loadRefreshList() {
         if (mEntity.isRefreshLoading()) {
@@ -369,21 +319,20 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                     @Override
                     public void subscribe(@NonNull ObservableEmitter<List<HomeListEntity>> e) throws Exception {
                         List<HomeListEntity> list = new ArrayList<>();
-                        String message = "新鲜的 ";
+                        String message="新鲜的";
                         for (int i = 1; i <= PAGE_SIZE; i++) {
-
                             HomeListEntity entity = new HomeListEntity();
-                            entity.setName(message + i);
-                            entity.setDesc(message + i);
+                            entity.setName(username[(i-1)%3]);
+                            entity.setDesc(desc[(i-1)%3]);
                             entity.setCommentCount(i);
                             entity.setLikeCount(i);
                             entity.setDate(new Date().toString());
-                            entity.setAddress(message + i);
-                            entity.setGroupName(message + i);
-                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
+                            entity.setAddress("北京");
+                            entity.setGroupName(username[(i-1)%3]);
+                            entity.setIconUrl(UriUtil.getUriForResourceId(icon[(i-1)%3]).toString());
                             List<String> list1 = new ArrayList<>();
-                            for (int j = 0; j < 7; j++) {
-                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
+                            for (int j = 0; j < goodsIcon[(i-1)%3].length; j++) {
+                                list1.add(UriUtil.getUriForResourceId(goodsIcon[(i-1)%3][j]).toString());
                             }
                             entity.setPhotoList(list1);
                             entity.setLiked(i % 2 == 0 ? true : false);
@@ -436,19 +385,20 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                     public void subscribe(@NonNull ObservableEmitter<List<HomeListEntity>> e) throws Exception {
                         List<HomeListEntity> list = new ArrayList<>();
                         String message = "附近的 ";
+
                         for (int i = 1; i <= PAGE_SIZE; i++) {
                             HomeListEntity entity = new HomeListEntity();
-                            entity.setName(message + i);
-                            entity.setDesc(message + i);
+                            entity.setName(username[(i-1)%3]);
+                            entity.setDesc(desc[(i-1)%3]);
                             entity.setCommentCount(i);
                             entity.setLikeCount(i);
                             entity.setDate(new Date().toString());
-                            entity.setAddress(message + i);
-                            entity.setGroupName(message + i);
-                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
+                            entity.setAddress("北京");
+                            entity.setGroupName(username[(i-1)%3]);
+                            entity.setIconUrl(UriUtil.getUriForResourceId(icon[(i-1)%3]).toString());
                             List<String> list1 = new ArrayList<>();
-                            for (int j = 0; j < 7; j++) {
-                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
+                            for (int j = 0; j < goodsIcon[(i-1)%3].length; j++) {
+                                list1.add(UriUtil.getUriForResourceId(goodsIcon[(i-1)%3][j]).toString());
                             }
                             entity.setLiked(i % 2 == 0 ? true : false);
                             entity.setPhotoList(list1);
@@ -506,19 +456,20 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                         } else {
                             size = (mRefreshListPage + 1) * PAGE_SIZE;
                         }
+
                         for (int i = mRefreshListPage * PAGE_SIZE + 1; i <= size; i++) {
                             HomeListEntity entity = new HomeListEntity();
-                            entity.setName(message + i);
-                            entity.setDesc(message + i);
+                            entity.setName(username[(i-1)%3]);
+                            entity.setDesc(desc[(i-1)%3]);
                             entity.setCommentCount(i);
                             entity.setLikeCount(i);
                             entity.setDate(new Date().toString());
-                            entity.setAddress(message + i);
-                            entity.setGroupName(message + i);
-                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
+                            entity.setAddress("北京");
+                            entity.setGroupName(username[(i-1)%3]);
+                            entity.setIconUrl(UriUtil.getUriForResourceId(icon[(i-1)%3]).toString());
                             List<String> list1 = new ArrayList<>();
-                            for (int j = 0; j < 7; j++) {
-                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
+                            for (int j = 0; j < goodsIcon[(i-1)%3].length; j++) {
+                                list1.add(UriUtil.getUriForResourceId(goodsIcon[(i-1)%3][j]).toString());
                             }
                             entity.setLiked(i % 2 == 0 ? true : false);
                             entity.setPhotoList(list1);
@@ -590,17 +541,17 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                         }
                         for (int i = mNearListPage * PAGE_SIZE + 1; i <= size; i++) {
                             HomeListEntity entity = new HomeListEntity();
-                            entity.setName(message + i);
-                            entity.setDesc(message + i);
+                            entity.setName(username[(i-1)%3]);
+                            entity.setDesc(desc[(i-1)%3]);
                             entity.setCommentCount(i);
                             entity.setLikeCount(i);
                             entity.setDate(new Date().toString());
-                            entity.setAddress(message + i);
-                            entity.setGroupName(message + i);
-                            entity.setIconUrl(UriUtil.getUriForResourceId(R.drawable.ic_default_icon).toString());
+                            entity.setAddress("北京");
+                            entity.setGroupName(username[(i-1)%3]);
+                            entity.setIconUrl(UriUtil.getUriForResourceId(icon[(i-1)%3]).toString());
                             List<String> list1 = new ArrayList<>();
-                            for (int j = 0; j < 7; j++) {
-                                list1.add(UriUtil.getUriForResourceId(R.drawable.ic_test1).toString());
+                            for (int j = 0; j < goodsIcon[(i-1)%3].length; j++) {
+                                list1.add(UriUtil.getUriForResourceId(goodsIcon[(i-1)%3][j]).toString());
                             }
                             entity.setLiked(i % 2 == 0 ? true : false);
                             entity.setPhotoList(list1);
@@ -654,23 +605,4 @@ public class HomeViewModel extends ViewModel implements IHomeViewModel {
                 });
     }
 
-
-    public List<HomeListEntity1> queryHomeListEntity(){
-        BmobQuery<HomeListEntity1> query = new BmobQuery<HomeListEntity1>();
-        final List<HomeListEntity1> result = new LinkedList<>();
-        query.findObjects(new FindListener<HomeListEntity1>() {
-            @Override
-            public void done(List<HomeListEntity1> list, BmobException e) {
-                if(e == null){
-                    for(HomeListEntity1 q1:list){
-                        result.add(q1);
-                    }
-                    Toast.makeText(context, "chenggong", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        return result;
-    }
 }

@@ -72,9 +72,10 @@ public class HomeViewLayer extends DataBindingViewLayer<FragmentHomeBinding, IHo
     //Tab切换的时候需要记录下之前所处的列表位置
     private int mRefreshPosition = 0;
     private int mNearPosition = 0;
-
+    private Fragment fragment;
     public HomeViewLayer(FragmentHomeBinding binding, Fragment fragment) {
         super(binding, fragment);
+        this.fragment=fragment;
     }
 
     @Override
@@ -131,9 +132,17 @@ public class HomeViewLayer extends DataBindingViewLayer<FragmentHomeBinding, IHo
             @Override
             public boolean onRequestChildFocus(RecyclerView parent, RecyclerView.State state, View child, View focused) {
                 //TODO 暂时处理View焦点问题
+
                 return true;
             }
         };
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent=new Intent(mContainer.getContext(),GoodInfoActivity.class);
+                mContainer.getContext().startActivity(intent);
+            }
+        });
         mHomeList.setLayoutManager(manager);
         mHomeList.setAdapter(mAdapter);
 
@@ -515,7 +524,9 @@ public class HomeViewLayer extends DataBindingViewLayer<FragmentHomeBinding, IHo
         int position;
         if (type == HomeEntity.LIST_TYPE_FRESH) {
             position = mRefreshPosition;
-        } else {
+        }
+
+        else {
             position = mNearPosition;
         }
         if (visible) {
