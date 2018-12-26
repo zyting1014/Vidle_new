@@ -1,10 +1,9 @@
 package com.demo.fish.app.main.entity;
 
-/**
- * Created by Ben on 2017/4/8.
- */
+import android.databinding.BaseObservable;
 
-public class BannerEntity {
+
+public class BannerEntity extends BaseObservable {
 
 
 

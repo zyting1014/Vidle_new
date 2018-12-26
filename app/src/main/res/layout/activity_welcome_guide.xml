@@ -21,12 +21,13 @@
         <Button
             android:id="@+id/btn_go"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="43dp"
             android:background="@drawable/colorbu"
-            android:text="开始"
+            android:text="登录"
+
             android:visibility="gone" />
     </RelativeLayout>
 

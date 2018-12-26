@@ -5,10 +5,6 @@ import android.databinding.Bindable;
 
 import com.demo.fish.BR;
 
-/**
- * Created by Ben on 2017/4/9.
- */
-
 public class FunctionItemEntity extends BaseObservable {
 
     private String iconUrl;

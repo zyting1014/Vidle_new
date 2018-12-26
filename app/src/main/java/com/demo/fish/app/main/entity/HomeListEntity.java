@@ -9,10 +9,6 @@ import com.demo.fish.app.main.goodInfo.ui.GoodInfoActivity;
 
 import java.util.List;
 
-/**
- * Created by Ben on 2017/4/9.
- */
-
 public class HomeListEntity extends BaseObservable {
 
     private String iconUrl;

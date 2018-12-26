@@ -14,26 +14,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import cn.bmob.v3.Bmob;
 import com.demo.fish.R;
 import com.demo.fish.app.main.ui.MainActivity;
 
 
 public class WelcomeGuideActivity extends FragmentActivity {
-    private static final int[] resource = new int[] { R.drawable.welcome1,
-            R.drawable.welcome4, R.drawable.welcome3, R.drawable.welcome4 };
+    private static final int[] resource = new int[] { R.drawable.b1,
+            R.drawable.b2, R.drawable.b3, R.drawable.b4 };
     private static final String TAG = WelcomeGuideActivity.class.getSimpleName();
     private Button btn_go;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bmob.initialize(this, "819cdd0bbb2ba2ff403ccb1a54dd386b");//初始化bmob
         setContentView(R.layout.activity_welcome_guide);
         btn_go = (Button) findViewById(R.id.btn_go);
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(WelcomeGuideActivity.this,MainActivity.class);
+                Intent intent=new Intent(WelcomeGuideActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
         });

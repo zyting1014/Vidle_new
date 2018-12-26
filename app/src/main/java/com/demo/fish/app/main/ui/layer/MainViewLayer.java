@@ -48,7 +48,8 @@ public class MainViewLayer extends ViewLayer<IMainViewModel, AppCompatActivity> 
     private HomeFragment mHomeFragment;
     private ShoppingCartFragment mShoppingFragment;
     private MyOrderFragment mOrderFragment;
-    private Fragment mMineFragment;
+//    private Fragment mMineFragment;
+    private MineFragment mineFragment;
 
     private List<View> mTabViewList;
 
@@ -122,11 +123,12 @@ public class MainViewLayer extends ViewLayer<IMainViewModel, AppCompatActivity> 
         mHomeFragment = HomeFragment.newInstance();
         mShoppingFragment =ShoppingCartFragment.newInstance();
         mOrderFragment = MyOrderFragment.newInstance();
-        mMineFragment = new Fragment();
+//        mMineFragment = new Fragment();
+        mineFragment = mineFragment.newInstance();
         mFragmentList.add(mHomeFragment);
         mFragmentList.add(mShoppingFragment);
         mFragmentList.add(mOrderFragment);
-        mFragmentList.add(mMineFragment);
+        mFragmentList.add(mineFragment);
 
         mTabViewList = new ArrayList<>();
         mTabViewList.add(mBinding.layoutBottom.home);

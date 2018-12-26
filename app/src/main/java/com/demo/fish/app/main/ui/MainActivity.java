@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        defaultQuery();//显示所有商品信息
         View view = getLayoutInflater().inflate(R.layout.acitonbar, null);
         Toolbar actionBar=view.findViewById(R.id.toolbar);
         setSupportActionBar(actionBar);
@@ -33,12 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mViewModel.setIndex(MainViewLayer.TAB_INDEX_HOME);
         ic_tab_add= (ImageView) findViewById(R.id.dd5);
         ic_tab_add.setOnClickListener(this);
-    }
-
-    public void defaultQuery(){
-       // BmobQuery<Good> query = new BmobQuery<Good>();
-
-
     }
 
 
